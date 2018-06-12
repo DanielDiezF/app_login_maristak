@@ -1,8 +1,8 @@
 <template>
   <div>
     <div>
+      <h3>Por favor inicia sesión</h3>
       <form>
-        <h3>Por favor inicia sesión</h3>
         <p id="errores"></p>
         <p><label for="usuario">Usuario: </label> <input type="text" id="usuario"/></p>
         <p><label for="pass">Contraseña: </label> <input type="password" id="pass"/></p>
