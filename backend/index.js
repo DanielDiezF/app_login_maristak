@@ -3,6 +3,8 @@ var bodyParser = require('body-parser');
 var app = express();
 var funciones = require('./funciones.js');
 
+app.use(bodyParser.urlencoded({ extended: false }))
+app.use(bodyParser.json())
 app.use(function (req, res, next) {
 
   // Website you wish to allow to connect
@@ -19,13 +21,14 @@ app.use(function (req, res, next) {
 });
 
 app.post('/nuevousuario', function (req, res) {
-	funciones.nuevoUsuario(usuario)
-	.then(function(result){
-		res.send(result);
-	})
-	.catch(function(err){
-		console.log(err);
-	});
+  funciones.nuevoUsuario(req.body)
+	// .then(function(result){
+	// 	res.send('Ok');
+	// })
+	// .catch(function(err){
+	// 	console.log(err);
+	// });
+  
 });
 
 app.listen(3773, function () {
