@@ -21,13 +21,14 @@ const store = () => new Vuex.Store({
     validarFormulario(context, usuario){
       if (usuario.pass == usuario.repass) {
         let nUsuario = {nombre: usuario.nombre, email: usuario.email, pass: md5(usuario.pass)}
-        console.log(nUsuario);
         return Axios.post('http://localhost:3773/nuevousuario', nUsuario)
         .then(function(result){
-          return result.data;
-        })
-        .catch(function(err){
-
+          console.log(result);
+          if(result.data.error){
+            return Promise.reject(result.data.error);
+          }else{
+            return result.data;
+          }
         })
       }else{
         return Promise.reject("Las contraseñas no coinciden");

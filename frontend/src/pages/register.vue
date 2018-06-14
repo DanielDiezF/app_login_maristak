@@ -4,7 +4,7 @@
       <h3>Formulario de registro</h3>
       <p v-if="errores" class="errores">{{ errores }}</p>
       <form @submit.prevent="chequearFormulario" id="formulario" action="http://localhost:3773/nuevousuario" method="POST">
-        <p><label for="usuario">Usuario: </label> <input type="text" v-model="usuario.nombre" required/></p>
+        <p><label for="usuario">Nombre de usuario: </label> <input type="text" v-model="usuario.nombre" required/></p>
         <p><label for="email">Dirección de email: </label> <input type="email" v-model="usuario.email" required/></p>
         <p><label for="pass">Contraseña: </label> <input type="password" v-model="usuario.pass" required/></p>
         <p><label for="repass">Repite tu contraseña: </label> <input type="password" v-model="usuario.repass" required/></p>
@@ -39,10 +39,11 @@
 
         this.$store.dispatch('validarFormulario', usuario)
         .then(function(result){
-          console.log(result);
+          self.$router.push({name: 'Login'});
         })
         .catch(function(err){
           self.errores = err;
+          console.log(err);
         });
       }
     }

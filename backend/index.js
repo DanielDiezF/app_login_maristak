@@ -22,12 +22,12 @@ app.use(function (req, res, next) {
 
 app.post('/nuevousuario', function (req, res) {
   funciones.nuevoUsuario(req.body)
-	// .then(function(result){
-	// 	res.send('Ok');
-	// })
-	// .catch(function(err){
-	// 	console.log(err);
-	// });
+	.then(function(result){
+		res.send('Usuario creado');
+	})
+	.catch(function(err){
+		res.send({error: err})
+	});
   
 });
 

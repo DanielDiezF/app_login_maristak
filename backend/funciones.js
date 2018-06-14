@@ -16,23 +16,23 @@ MongoClient.connect(dburl)
 });
 
 function nuevoUsuario(usuario){
-  crearUsuario(usuario)
-  // comprobarUsuarioUnico(usuario.nombre, usuario.email)
-  // .then(function(res){
-  //   console.log(res);
-  //   crearUsuario(usuario);
-  // })
-  // .catch(function(err){
-  //   res.send(err);
-  // })
+  return comprobarUsuario(usuario.nombre)
+  .then(function(){
+    return crearUsuario(usuario);
+  })
 }
 
-function comprobarUsuarioUnico(nombre, email){
-  return true;
+function comprobarUsuario(nombre){
+  return lusers.findOne({'nombre': nombre})
+	.then(function(res) {
+		if(res){
+      return Promise.reject('Nombre en uso');
+    }
+  })
 }
 
 function crearUsuario(usuario){
-  lusers.insertOne(usuario);
+  lusers.insertOne(usuario)
 }
 
 module.exports = {
