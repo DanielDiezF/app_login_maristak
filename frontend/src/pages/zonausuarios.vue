@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1>Buenos días {{user}}</h1>
+    <h1>Buenos días, {{user}}</h1>
     <button @click='logOff'>Cerrar sesión</button>
   </div>
 </template>
@@ -11,7 +11,7 @@ export default {
   name: 'ZonaUsuarios',
   data () {
     return {
-      user: 'Gilipollas'
+      user: 'Usuario'
     }
   },
   created () {
@@ -22,7 +22,6 @@ export default {
     cargarNombreUsuario: function(){
       if(document.cookie != ''){
         let sessID = this.getCookie();
-        alert(sessID);
         let self = this;
         this.getUserName(sessID)
         .then(function(res){
