@@ -3,7 +3,7 @@
     <div id="contenedorForm">
       <h3>Formulario de registro</h3>
       <p v-if="errores" class="errores">{{ errores }}</p>
-      <form @submit.prevent="chequearFormulario" id="formulario" action="http://localhost:3773/nuevousuario" method="POST">
+      <form @submit.prevent="chequearFormulario" id="formulario">
         <p><label for="usuario">Nombre de usuario: </label> <input type="text" v-model="usuario.nombre" required/></p>
         <p><label for="email">Dirección de email: </label> <input type="email" v-model="usuario.email" required/></p>
         <p><label for="pass">Contraseña: </label> <input type="password" v-model="usuario.pass" required/></p>
@@ -16,7 +16,7 @@
 </template>
 
 <script>
-
+  import { mapActions } from 'vuex'
   export default {
     name: 'Register',
     data () {
@@ -30,14 +30,20 @@
         }
       }
     },
+    created () {
+      if(document.cookie != ''){
+        this.$router.push({name: 'ZonaUsuarios'});
+      }
+    },
     methods: {
+      ...mapActions(['validarFormulario']),
       chequearFormulario: function(){
         this.errores = '';
         let self = this;
         let usuario = this.usuario;
         
 
-        this.$store.dispatch('validarFormulario', usuario)
+        this.validarFormulario(usuario)
         .then(function(result){
           self.$router.push({name: 'Login'});
         })

@@ -26,9 +26,39 @@ app.post('/nuevousuario', function (req, res) {
 		res.send('Usuario creado');
 	})
 	.catch(function(err){
-		res.send({error: err})
+		res.send({error: err});
 	});
-  
+});
+
+app.post('/login', function (req, res) {
+  funciones.login(req.body)
+	.then(function(result){
+		res.send(result);
+	})
+	.catch(function(err){
+		res.send({error: err});
+	});
+});
+
+app.get('/session/:sessID', function (req, res) {
+	let sessID = req.params.sessID;
+	funciones.getUserNameBySessId(sessID)
+	.then(function(result){
+		res.send(result);
+	})
+	.catch(function(err){
+		res.send({error: err});
+	})
+});
+
+app.post('/cerrarSesion', function (req, res) {
+  funciones.cerrarSesion(req.body.sessID)
+	.then(function(result){
+		res.send(result);
+	})
+	.catch(function(err){
+		res.send({error: err});
+	});
 });
 
 app.listen(3773, function () {
